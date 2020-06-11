@@ -1,0 +1,20 @@
+[
+    {
+        "id": "demo01",
+        "pk": "Shirt",
+        "productid": "9768396011277",
+        "product": "Fish"
+    },
+    {
+        "id": "demo02",
+        "productid": "3385484905124",
+        "product": "Hat",
+        "pk": "Bike"
+    },
+    {
+        "id": "demo03",
+        "product": "Hat",
+        "pk": "Pizza",
+        "productid": "2061988781167"
+    }
+]

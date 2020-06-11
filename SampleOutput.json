@@ -1,0 +1,35 @@
+[
+    {
+        "id": "demo01",
+        "pk": "Shirt",
+        "productid": "9768396011277",
+        "product": "Fish",
+        "_rid": "g19qAPg6Syer+B4AAAAACA==",
+        "_self": "dbs/g19qAA==/colls/g19qAPg6Syc=/docs/g19qAPg6Syer+B4AAAAACA==/",
+        "_etag": "\"2100e95f-0000-0800-0000-5ee24c570000\"",
+        "_attachments": "attachments/",
+        "_ts": "1591888983"
+    },
+    {
+        "id": "demo02",
+        "pk": "Bike",
+        "productid": "3385484905124",
+        "product": "Hat",
+        "_rid": "g19qAPg6Sydd+R4AAAAAAA==",
+        "_self": "dbs/g19qAA==/colls/g19qAPg6Syc=/docs/g19qAPg6Sydd+R4AAAAAAA==/",
+        "_etag": "\"0000f67a-0000-0800-0000-5ee24c570000\"",
+        "_attachments": "attachments/",
+        "_ts": "1591888983"
+    },
+    {
+        "id": "demo03",
+        "pk": "Pizza",
+        "productid": "2061988781167",
+        "product": "Hat",
+        "_rid": "g19qAPg6Syes+B4AAAAACA==",
+        "_self": "dbs/g19qAA==/colls/g19qAPg6Syc=/docs/g19qAPg6Syes+B4AAAAACA==/",
+        "_etag": "\"2100ea5f-0000-0800-0000-5ee24c570000\"",
+        "_attachments": "attachments/",
+        "_ts": "1591888983"
+    }
+]

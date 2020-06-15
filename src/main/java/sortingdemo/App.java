@@ -32,8 +32,36 @@ public class App
         FeedOptions options = new FeedOptions();
         options.setEnableCrossPartitionQuery(true);
 
-        List<democlass> outputarrlist = new ArrayList<>();
+        TodoItem newitem = new TodoItem();
+        newitem.setpk("testpk");
+        newitem.seteventType("1");
+        newitem.seteventStatus("2");
+        newitem.seteventCreationType("3");
+        newitem.setuNLocationCode("4");
+        newitem.setlocationName("5");
+        
+        System.out.println("Create document ... ");
         try{            
+            System.out.println("newitem:\r\n" + mapper.writeValueAsString(newitem).toString());            
+            Document testresult = null;            
+            testresult = documentclient.createDocument(collectionLink, newitem, null, false).getResource();
+            System.out.println("testresult:\r\n" + testresult.toString());
+        }
+        catch(Exception ce)
+        {
+            System.out.println(ce.toString());
+        }
+        
+        /*
+        Input / newitem:
+            {"pk":"testpk","eventType":"1","eventStatus":"2","eventCreationType":"3","uNLocationCode":"4","locationName":"5"}
+
+        Output / testresult:
+            {"_attachments":"attachments/","eventCreationType":"3","_rid":"Ppx6AMzcdtmNhB4AAAAAAA==","locationName":"5","eventStatus":"2","uNLocationCode":"4","id":"29a28c67-7334-46e2-a28c-67733426e270","pk":"testpk","eventType":"1","_self":"dbs/Ppx6AA==/colls/Ppx6AMzcdtk=/docs/Ppx6AMzcdtmNhB4AAAAAAA==/","_etag":"\"0000d1bc-0000-0800-0000-5ee793c00000\"","_ts":1592234944}        
+        */
+
+        List<democlass> outputarrlist = new ArrayList<>();
+        try{
             System.out.println("Retrieve documents ... ");
             List<Document> documentList = documentclient.queryDocuments(collectionLink
                 , "select * from root r order by r.id"

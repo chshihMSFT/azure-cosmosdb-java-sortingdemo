@@ -60,7 +60,7 @@ public class App
             {"_attachments":"attachments/","eventCreationType":"3","_rid":"Ppx6AMzcdtmNhB4AAAAAAA==","locationName":"5","eventStatus":"2","uNLocationCode":"4","id":"29a28c67-7334-46e2-a28c-67733426e270","pk":"testpk","eventType":"1","_self":"dbs/Ppx6AA==/colls/Ppx6AMzcdtk=/docs/Ppx6AMzcdtmNhB4AAAAAAA==/","_etag":"\"0000d1bc-0000-0800-0000-5ee793c00000\"","_ts":1592234944}        
         */
 
-        List<democlass> outputarrlist = new ArrayList<>();
+        List<TodoItem> outputarrlist = new ArrayList<>();
         try{
             System.out.println("Retrieve documents ... ");
             List<Document> documentList = documentclient.queryDocuments(collectionLink
@@ -74,11 +74,11 @@ public class App
                 System.out.println("[id: " + document.getId() + "]");                
                 try {
                     outputarrlist.add(mapper.readValue(document.toString(),
-                        democlass.class));
+                        TodoItem.class));                    
                 } catch (Exception e) {
                     System.out.println(e.toString());
                 }
-            }            
+            }
             
             String strDocJson = mapper.writeValueAsString(outputarrlist);
             System.out.println("Serialize as a JSON Document ... \r\n"

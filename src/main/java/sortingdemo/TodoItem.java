@@ -5,33 +5,6 @@ public class TodoItem {
     public TodoItem() {
     }
 
-    private String id;
-    private String pk;
-    private String eventType;                   // 01
-    private String eventStatus;                 // 02
-    private String eventCreationType;           // 03
-    private String uNLocationCode;              // 04
-    private String locationName;                // 05
-    private String _rid;
-    private String _self;
-    private String _etag;
-    private String _attachments;
-    private String _ts;
-
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getpk() {
-        return pk;
-    }
-    public void setpk(String pk) {
-        this.pk = pk;
-    }
-
     // 01
     public String geteventType() {
         return eventType;
@@ -72,41 +45,197 @@ public class TodoItem {
         this.locationName = locationName;
     }
     
-    //system attributes
-    public String get_rid() {
-        return _rid;
+    // 06
+    public String getterminalCode() {
+        return terminalCode;
     }
-    public void set_rid(String _rid) {
-        this._rid = _rid;
-    }
-
-    public String get_self() {
-        return _self;
-    }
-    public void set_self(String _self) {
-        this._self = _self;
+    public void setterminalCode(String terminalCode) {
+        this.terminalCode = terminalCode;
     }
 
-    public String get_etag() {
-        return _etag;
+    // 07
+    public String getcontainerMovementType() {
+        return containerMovementType;
     }
-    public void set_etag(String _etag) {
-        this._etag = _etag;
+    public void setcontainerMovementType(String containerMovementType) {
+        this.containerMovementType = containerMovementType;
     }
 
-    public String get_attachments() {
-        return _attachments;
+    // 08
+    public String getcontainerNo() {
+        return containerNo;
     }
-    public void setattachments(String _attachments) {
-        this._attachments = _attachments;
+    public void setcontainerNo(String containerNo) {
+        this.containerNo = containerNo;
+    }
+
+    // 09
+    public String getcontainerWeightInKG() {
+        return containerWeightInKG;
+    }
+    public void setcontainerWeightInKG(String containerWeightInKG) {
+        this.containerWeightInKG = containerWeightInKG;
+    }
+
+    // 10
+    public String getcontainerSizeType() {
+        return containerSizeType;
+    }
+    public void setcontainerSizeType(String containerSizeType) {
+        this.containerSizeType = containerSizeType;
+    }
+
+    // 11
+    public String getcontainerOperator() {
+        return containerOperator;
+    }
+    public void setcontainerOperator(String containerOperator) {
+        this.containerOperator = containerOperator;
+    }
+
+    // 12
+    public String getblNo() {
+        return blNo;
+    }
+    public void setblNo(String blNo) {
+        this.blNo = blNo;
+    }
+
+    // 13
+    public String getbookingRefNo() {
+        return bookingRefNo;
+    }
+    public void setbookingRefNo(String bookingRefNo) {
+        this.bookingRefNo = bookingRefNo;
+    }
+
+    // 14
+    public String getloadDichargeVesselIMONo() {
+        return loadDichargeVesselIMONo;
+    }
+    public void setloadDichargeVesselIMONo(String loadDichargeVesselIMONo) {
+        this.loadDichargeVesselIMONo = loadDichargeVesselIMONo;
+    }
+
+    // 15
+    public String getloadDichargeVesselOperator() {
+        return loadDichargeVesselOperator;
+    }
+    public void setloadDichargeVesselOperator(String loadDichargeVesselOperator) {
+        this.loadDichargeVesselOperator = loadDichargeVesselOperator;
+    }
+
+    // 16
+    public String getloadDischargeVesselName() {
+        return loadDischargeVesselName;
+    }
+    public void setloadDischargeVesselName(String loadDischargeVesselName) {
+        this.loadDischargeVesselName = loadDischargeVesselName;
+    }
+
+    // 17
+    public String getloadDischargeVoyageNo() {
+        return loadDischargeVoyageNo;
+    }
+    public void setloadDischargeVoyageNo(String loadDischargeVoyageNo) {
+        this.loadDischargeVoyageNo = loadDischargeVoyageNo;
+    }
+
+    // 18
+    public String geteventDate() {
+        return eventDate;
+    }
+    public void seteventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    // 19
+    public String gethaulierCompanyName() {
+        return haulierCompanyName;
+    }
+    public void sethaulierCompanyName(String haulierCompanyName) {
+        this.haulierCompanyName = haulierCompanyName;
     }
     
-    public String get_ts() {
-        return _ts;
+    // 20
+    public String getvehicleId() {
+        return vehicleId;
     }
-    public void set_ts(String _ts) {
-        this._ts = _ts;
+    public void setvehicleId(String vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
+    // 21
+    public String getorigin() {
+        return origin;
+    }
+    public void setorigin(String origin) {
+        this.origin = origin;
+    }
+
+    // 22
+    public String getdestination() {
+        return destination;
+    }
+    public void setdestination(String destination) {
+        this.destination = destination;
+    }
+
+    // 23
+    public String getpoL() {
+        return poL;
+    }
+    public void setpoL(String poL) {
+        this.poL = poL;
+    }
+
+    // 24
+    public String getpoD() {
+        return poD;
+    }
+    public void setpoD(String poD) {
+        this.poD = poD;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }    
+
+    public String getpk() {
+        return pk;
+    }
+    public void setpk(String pk) {
+        this.pk = pk;
+    }
+
+    private String id;
+    private String pk;
+    private String eventType;                   // 01
+    private String eventStatus;                 // 02
+    private String eventCreationType;           // 03
+    private String uNLocationCode;              // 04
+    private String locationName;                // 05
+    private String terminalCode;                // 06
+    private String containerMovementType;       // 07
+    private String containerNo;                 // 08
+    private String containerWeightInKG;         // 09
+    private String containerSizeType;           // 10
+    private String containerOperator;           // 11
+    private String blNo;                        // 12
+    private String bookingRefNo;                // 13
+    private String loadDichargeVesselIMONo;     // 14
+    private String loadDichargeVesselOperator;  // 15
+    private String loadDischargeVesselName;     // 16
+    private String loadDischargeVoyageNo;       // 17
+    private String eventDate;                   // 18
+    private String haulierCompanyName;          // 19
+    private String vehicleId;                   // 20
+    private String origin;                      // 21
+    private String destination;                 // 22
+    private String poL;                         // 23
+    private String poD;                         // 24
 
 }

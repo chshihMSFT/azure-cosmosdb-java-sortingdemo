@@ -1,13 +1,20 @@
 package sortingdemo;
 
-import com.microsoft.azure.documentdb.*;
+import com.azure.cosmos.*;
+import com.azure.cosmos.models.CosmosContainerProperties;
+import com.azure.cosmos.models.CosmosContainerResponse;
+import com.azure.cosmos.models.CosmosDatabaseResponse;
+import com.azure.cosmos.models.CosmosItemRequestOptions;
+import com.azure.cosmos.models.CosmosItemResponse;
+import com.azure.cosmos.models.CosmosQueryRequestOptions;
+import com.azure.cosmos.models.ThroughputProperties;
+import com.azure.cosmos.util.CosmosPagedIterable;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.UUID;
 
 public class App 
 {
@@ -17,76 +24,82 @@ public class App
     private static final String collectionId = "ContainerName";
     private static final String partitionKeyFieldName = "PartitionKey";
     private static final String partitionKeyPath = "/" + partitionKeyFieldName;
-    private static final String collectionLink = String.format("/dbs/%s/colls/%s", databaseId, collectionId);
 
-    private static DocumentClient documentclient;
-    // We'll use Gson for POJO <=> JSON serialization for this example.
-    
+    private static CosmosClient cosmoslient;
+    private static CosmosDatabase database;
+    private static CosmosContainer container;
+    private static UUID uuid;
+
     private static ObjectMapper mapper = new ObjectMapper()
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         .setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
     public static void main( String[] args)
     {        
-        documentclient = new DocumentClient(HOST, MASTER_KEY, null, null);        
-        FeedOptions options = new FeedOptions();
-        options.setEnableCrossPartitionQuery(true);
+        cosmoslient = new CosmosClientBuilder()
+                .endpoint(HOST)
+                .key(MASTER_KEY)
+                .buildClient();
+
+        CosmosDatabaseResponse databaseResponse = cosmoslient.createDatabaseIfNotExists(databaseId);
+        database = cosmoslient.getDatabase(databaseResponse.getProperties().getId());        
+        CosmosContainerProperties containerProperties = new CosmosContainerProperties(collectionId, partitionKeyPath);
+        ThroughputProperties throughputProperties = ThroughputProperties.createManualThroughput(400);
+        CosmosContainerResponse containerResponse = database.createContainerIfNotExists(containerProperties, throughputProperties);
+        container = database.getContainer(containerResponse.getProperties().getId());
 
         TodoItem newitem = new TodoItem();
+        newitem.setId(uuid.randomUUID().toString());
         newitem.setpk("testpk");
         newitem.seteventType("1");
         newitem.seteventStatus("2");
         newitem.seteventCreationType("3");
         newitem.setuNLocationCode("4");
         newitem.setlocationName("5");
-        
-        System.out.println("Create document ... ");
-        try{            
-            System.out.println("newitem:\r\n" + mapper.writeValueAsString(newitem).toString());            
-            Document testresult = null;            
-            testresult = documentclient.createDocument(collectionLink, newitem, null, false).getResource();
-            System.out.println("testresult:\r\n" + testresult.toString());
+        newitem.setterminalCode("6");
+        newitem.setcontainerMovementType("7");
+        newitem.setcontainerNo("8");
+        newitem.setcontainerWeightInKG("9");
+        newitem.setcontainerSizeType("10");
+        newitem.setcontainerOperator("11");
+        newitem.setblNo("12");
+        newitem.setbookingRefNo("13");
+        newitem.setloadDichargeVesselIMONo("14");
+        newitem.setloadDichargeVesselOperator("15");
+        newitem.setloadDischargeVesselName("16");
+        newitem.setloadDischargeVoyageNo("17");
+        newitem.seteventDate("18");
+        newitem.sethaulierCompanyName("19");
+        newitem.setvehicleId("20");
+        newitem.setorigin("21");
+        newitem.setdestination("22");
+        newitem.setpoL("23");
+        newitem.setpoD("24");
+
+        System.out.println("Create a document ... ");
+        try{
+            CosmosItemResponse<TodoItem> testresult;
+            testresult = container.createItem(newitem, new CosmosItemRequestOptions());
+            System.out.println("Status: " + testresult.getStatusCode());
+            System.out.println("Diagnostics: \r\n" + testresult.getDiagnostics());
         }
         catch(Exception ce)
         {
             System.out.println(ce.toString());
         }
-        
-        /*
-        Input / newitem:
-            {"pk":"testpk","eventType":"1","eventStatus":"2","eventCreationType":"3","uNLocationCode":"4","locationName":"5"}
-
-        Output / testresult:
-            {"_attachments":"attachments/","eventCreationType":"3","_rid":"Ppx6AMzcdtmNhB4AAAAAAA==","locationName":"5","eventStatus":"2","uNLocationCode":"4","id":"29a28c67-7334-46e2-a28c-67733426e270","pk":"testpk","eventType":"1","_self":"dbs/Ppx6AA==/colls/Ppx6AMzcdtk=/docs/Ppx6AMzcdtmNhB4AAAAAAA==/","_etag":"\"0000d1bc-0000-0800-0000-5ee793c00000\"","_ts":1592234944}        
-        */
-
-        List<TodoItem> outputarrlist = new ArrayList<>();
+                
+        System.out.println("Retrieve documents ... ");
         try{
-            System.out.println("Retrieve documents ... ");
-            List<Document> documentList = documentclient.queryDocuments(collectionLink
-                , "select * from root r order by r.id"
-                , options)
-                .getQueryIterable()
-                .toList();
-            
-            System.out.println("De-serialize the documents ... ");
-            for(Document document : documentList) {
-                System.out.println("[id: " + document.getId() + "]");                
-                try {
-                    outputarrlist.add(mapper.readValue(document.toString(),
-                        TodoItem.class));                    
-                } catch (Exception e) {
-                    System.out.println(e.toString());
-                }
+            String sql = "SELECT * FROM c";    
+            CosmosPagedIterable<TodoItem> itemlists = container.queryItems(sql, new CosmosQueryRequestOptions(), TodoItem.class);
+
+            for (TodoItem item : itemlists) {                
+                System.out.println(mapper.writeValueAsString(item).toString());   
             }
-            
-            String strDocJson = mapper.writeValueAsString(outputarrlist);
-            System.out.println("Serialize as a JSON Document ... \r\n"
-                + strDocJson.toString());
         }
-        catch (Exception e) {
-            System.out.println(e.toString());
-        }
+        catch (Exception ce) {
+            System.out.println(ce.toString());
+        }        
 
     }
 }

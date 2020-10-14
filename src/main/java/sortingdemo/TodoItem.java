@@ -71,7 +71,7 @@ public class TodoItem {
     public void setlocationName(String locationName) {
         this.locationName = locationName;
     }
-    
+
     //system attributes
     public String get_rid() {
         return _rid;
@@ -100,7 +100,7 @@ public class TodoItem {
     public void setattachments(String _attachments) {
         this._attachments = _attachments;
     }
-    
+
     public String get_ts() {
         return _ts;
     }

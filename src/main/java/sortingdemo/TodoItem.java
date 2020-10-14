@@ -44,7 +44,7 @@ public class TodoItem {
     public void setlocationName(String locationName) {
         this.locationName = locationName;
     }
-    
+
     // 06
     public String getterminalCode() {
         return terminalCode;
@@ -156,7 +156,7 @@ public class TodoItem {
     public void sethaulierCompanyName(String haulierCompanyName) {
         this.haulierCompanyName = haulierCompanyName;
     }
-    
+
     // 20
     public String getvehicleId() {
         return vehicleId;
@@ -202,7 +202,7 @@ public class TodoItem {
     }
     public void setId(String id) {
         this.id = id;
-    }    
+    }
 
     public String getpk() {
         return pk;

@@ -70,7 +70,7 @@ public class democlass {
     public void setattachments(String _attachments) {
         this._attachments = _attachments;
     }
-    
+
     public String get_ts() {
         return _ts;
     }

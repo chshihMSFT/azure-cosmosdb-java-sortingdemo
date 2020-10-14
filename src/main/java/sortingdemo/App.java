@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.UUID;
 
-public class App 
+public class App
 {
     private static final String HOST = "URI";
     private static final String MASTER_KEY = "PrimaryKey";
@@ -35,14 +35,14 @@ public class App
         .setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
     public static void main( String[] args)
-    {        
+    {
         cosmoslient = new CosmosClientBuilder()
                 .endpoint(HOST)
                 .key(MASTER_KEY)
                 .buildClient();
 
         CosmosDatabaseResponse databaseResponse = cosmoslient.createDatabaseIfNotExists(databaseId);
-        database = cosmoslient.getDatabase(databaseResponse.getProperties().getId());        
+        database = cosmoslient.getDatabase(databaseResponse.getProperties().getId());
         CosmosContainerProperties containerProperties = new CosmosContainerProperties(collectionId, partitionKeyPath);
         ThroughputProperties throughputProperties = ThroughputProperties.createManualThroughput(400);
         CosmosContainerResponse containerResponse = database.createContainerIfNotExists(containerProperties, throughputProperties);
@@ -87,19 +87,19 @@ public class App
         {
             System.out.println(ce.toString());
         }
-                
+
         System.out.println("Retrieve documents ... ");
         try{
-            String sql = "SELECT * FROM c";    
+            String sql = "SELECT * FROM c";
             CosmosPagedIterable<TodoItem> itemlists = container.queryItems(sql, new CosmosQueryRequestOptions(), TodoItem.class);
 
-            for (TodoItem item : itemlists) {                
-                System.out.println(mapper.writeValueAsString(item).toString());   
+            for (TodoItem item : itemlists) {
+                System.out.println(mapper.writeValueAsString(item).toString());
             }
         }
         catch (Exception ce) {
             System.out.println(ce.toString());
-        }        
+        }
 
     }
 }
